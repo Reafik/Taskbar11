@@ -17,13 +17,43 @@ export interface ContextData {
   createdBy: string;
 }
 
+export interface DesignToken {
+  id: string;
+  name: string;
+  type: 'color' | 'number' | 'string' | 'boolean';
+  value: any;
+  description?: string;
+  usage?: string;
+  resolvedType: string;
+  scopes?: string[];
+  codeSyntax?: {
+    web?: string;
+    ios?: string;
+    android?: string;
+  };
+  variableCollectionId?: string;
+  collectionName?: string;
+}
+
+export interface TokenCollection {
+  id: string;
+  name: string;
+  modes: Array<{
+    modeId: string;
+    name: string;
+  }>;
+  tokens: DesignToken[];
+}
+
 export interface Project {
   id: string;
   fileKey: string;
   name: string;
   contexts: ContextData[];
+  tokens?: TokenCollection[];
   lastSync: string;
   createdAt: string;
+  figmaFileUrl?: string;
 }
 
 export interface User {

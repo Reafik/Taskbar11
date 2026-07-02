@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import ProjectPage from './pages/ProjectPage';
 import ContextDetailPage from './pages/ContextDetailPage';
+import ImportPage from './pages/ImportPage';
+import TokensPage from './pages/TokensPage';
 import './App.css';
 
 function App() {
@@ -16,6 +18,7 @@ function App() {
             </Link>
             <nav>
               <Link to="/">Projects</Link>
+              <Link to="/import">Import</Link>
               <Link to="/settings">Settings</Link>
             </nav>
           </div>
@@ -24,8 +27,10 @@ function App() {
         <main className="app-main">
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/import" element={<ImportPage />} />
             <Route path="/project/:fileKey" element={<ProjectPage />} />
             <Route path="/project/:fileKey/context/:contextId" element={<ContextDetailPage />} />
+            <Route path="/project/:fileKey/tokens" element={<TokensPage />} />
           </Routes>
         </main>
         

@@ -37,11 +37,12 @@ export class ProjectController {
         return res.status(400).json({ error: 'Missing required fields' });
       }
       
-      const projectName = `Design System ${syncData.fileKey.substring(0, 8)}`;
+      const projectName = syncData.fileKey ? `Design System ${syncData.fileKey.substring(0, 8)}` : 'Design System';
       const project = dataStore.createOrUpdateProject(
         syncData.fileKey,
         projectName,
-        syncData.contexts
+        syncData.contexts,
+        syncData.tokens
       );
       
       res.json({

@@ -42,7 +42,14 @@ const HomePage: React.FC = () => {
     <div className="container">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 32 }}>
         <h1 className="page-title">Design Systems</h1>
-        <button className="button" onClick={generateApiKey}>Generate API Key</button>
+        <div style={{ display: 'flex', gap: 12 }}>
+          <Link to="/import" className="button">
+            Import from Figma
+          </Link>
+          <button className="button button-secondary" onClick={generateApiKey}>
+            Generate API Key
+          </button>
+        </div>
       </div>
       
       {showApiKey && (
@@ -84,6 +91,7 @@ const HomePage: React.FC = () => {
                 <h3 className="card-title">{project.name}</h3>
                 <div className="card-meta">
                   <span>{project.contexts.length} components</span>
+                  {project.tokens && <span>{project.tokens.reduce((sum, col) => sum + col.tokens.length, 0)} tokens</span>}
                   <span>Last sync: {new Date(project.lastSync).toLocaleDateString()}</span>
                 </div>
               </div>

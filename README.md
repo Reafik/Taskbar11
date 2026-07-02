@@ -13,10 +13,13 @@ Design Context Pro helps design teams bridge the gap between design and document
 - **🎨 Figma Plugin**: Add context directly to design components within Figma
 - **🌐 Web Application**: Browse and search your design system documentation
 - **🔄 Real-time Sync**: Keep documentation in sync between Figma and the web
+- **🎯 URL Import**: Paste any Figma file URL to automatically analyze and import design tokens
+- **🔖 Design Tokens**: Automatic extraction of Figma variables (colors, typography, spacing, etc.)
 - **📝 Rich Documentation**: Add descriptions, usage guidelines, properties, examples, and more
 - **🏷️ Tag System**: Organize components with tags for easy discovery
-- **🔍 Search**: Powerful search across all documented components
+- **🔍 Search**: Powerful search across all documented components and tokens
 - **👥 Collaboration**: Share design system knowledge across your team
+- **💻 Code Syntax**: View tokens in CSS, iOS, and Android formats
 
 ## Project Structure
 
@@ -117,7 +120,23 @@ The web app will start on `http://localhost:3000`
 
 ## Usage
 
-### Setting Up API Key
+### Method 1: Import from Figma URL (Recommended)
+
+1. Open the web app at `http://localhost:3000`
+2. Click **"Import from Figma"**
+3. Paste your Figma file URL (e.g., `https://www.figma.com/file/abc123...`)
+4. For private files, add your Figma Personal Access Token
+   - Get it from [Figma Settings > Personal Access Tokens](https://www.figma.com/settings)
+5. Click **"Analyze Design System"**
+6. The system will automatically extract:
+   - All design tokens (variables)
+   - Color palettes
+   - Typography scales
+   - Spacing systems
+   - Component structure
+7. Browse and add context to your tokens
+
+### Method 2: Manual Sync from Figma Plugin
 
 1. Open the web app at `http://localhost:3000`
 2. Click **"Generate API Key"**
@@ -141,9 +160,14 @@ The web app will start on `http://localhost:3000`
 
 1. Navigate to `http://localhost:3000`
 2. Browse your synced design systems
-3. Search for specific components
-4. Filter by tags
-5. View detailed documentation for each component
+3. Click **"View Design Tokens"** to see all extracted variables
+4. Add context and documentation to each token:
+   - Description: What this token represents
+   - Usage: When and how to use it
+   - View code syntax for Web, iOS, and Android
+5. Search for specific components or tokens
+6. Filter by tags or collections
+7. View detailed documentation for each component
 
 ## API Documentation
 
@@ -160,6 +184,13 @@ The web app will start on `http://localhost:3000`
 - `GET /api/projects/:fileKey/contexts` - Get all contexts for a project
 - `GET /api/projects/:fileKey/contexts/:contextId` - Get a specific context
 - `POST /api/sync` - Sync contexts from Figma (requires API key)
+
+#### Figma Integration
+
+- `POST /api/figma/analyze` - Analyze a Figma file by URL and extract tokens
+- `GET /api/figma/:fileKey/tokens` - Get all design tokens for a file
+- `PUT /api/figma/:fileKey/tokens/:tokenId` - Update token context
+- `GET /api/figma/tokens/search` - Search tokens
 
 #### Search
 
@@ -225,6 +256,23 @@ npm start
 
 ## Features in Detail
 
+### Design Token Management
+
+Automatically extract and document Figma variables:
+- **Colors**: Brand colors, semantic colors, gradients
+- **Typography**: Font families, sizes, weights, line heights
+- **Spacing**: Margins, paddings, gaps
+- **Numbers**: Border radius, opacity, other numeric values
+- **Boolean & String**: Feature flags and text values
+
+Each token includes:
+- **Name & Value**: As defined in Figma
+- **Type**: Color, number, string, or boolean
+- **Collection**: Organized by variable collection
+- **Modes**: Support for light/dark mode and other variants
+- **Code Syntax**: Auto-generated CSS variables, Swift, and Android code
+- **Context**: Add custom descriptions and usage guidelines
+
 ### Context Management
 
 Each component can have:
@@ -235,25 +283,42 @@ Each component can have:
 - **Guidelines**: Best practices and design guidelines
 - **Tags**: Categorization for easy filtering
 
-### Sync Mechanism
+### Import Methods
+
+**1. URL Import (Web App)**
+- Paste any Figma file URL
+- Automatic token extraction
+- No plugin installation required
+- Works with public and private files (with token)
+
+**2. Plugin Sync**
+**2. Plugin Sync**
+- Store context in Figma files
+- Manual sync to web app
+- Works offline in Figma
 
 The plugin stores context data in Figma's plugin data storage. When you sync:
-1. Plugin collects all context data from the current file
 2. Sends it to the backend via API
 3. Backend stores and indexes the data
 4. Web app displays the latest synced data
 
 ## Roadmap
 
+- [x] Figma URL import
+- [x] Design token extraction
+- [x] Multi-platform code syntax (CSS, iOS, Android)
+- [x] Token documentation
 - [ ] MongoDB/PostgreSQL integration
 - [ ] User authentication and team workspaces
 - [ ] Version history for documentation
 - [ ] Visual previews from Figma
-- [ ] Export to Markdown/HTML
+- [ ] Export to Markdown/HTML/JSON
 - [ ] Comments and discussions
-- [ ] Design tokens integration
-- [ ] Figma variables documentation
+- [ ] Design tokens integration with Style Dictionary
+- [ ] Figma variables documentation improvements
 - [ ] AI-assisted documentation generation
+- [ ] Real-time collaboration
+- [ ] Webhooks for auto-sync
 
 ## Contributing
 

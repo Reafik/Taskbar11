@@ -56,9 +56,16 @@ const ProjectPage: React.FC = () => {
       
       <h1 className="page-title">{project.name}</h1>
       
+      <div style={{ display: 'flex', gap: 12, marginBottom: 24 }}>
+        <Link to={`/project/${fileKey}/tokens`} className="button">
+          View Design Tokens
+        </Link>
+      </div>
+      
       <div className="card" style={{ marginBottom: 24 }}>
         <div className="card-meta">
           <span>{contexts.length} components documented</span>
+          {project.tokens && <span>{project.tokens.reduce((sum, col) => sum + col.tokens.length, 0)} tokens</span>}
           <span>Last synced: {new Date(project.lastSync).toLocaleString()}</span>
         </div>
       </div>
