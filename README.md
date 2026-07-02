@@ -1,49 +1,284 @@
-[![Github All Releases](https://img.shields.io/github/downloads/jetspiking/Taskbar11/total.svg)]()
-[![License](https://img.shields.io/github/license/jetspiking/Taskbar11.svg)]()
-[![Stars](https://img.shields.io/github/stars/jetspiking/Taskbar11.svg)]()
+# Design Context Pro
 
-# Development halted
-- Due to the removal of registry tweaks and corresponding effects in Windows 11 the development is currently halted, because functions like setting the taskbar to the top through the registry are no longer working in the latest Windows 11 version(s). 
+A comprehensive Figma plugin and web application for adding rich context and documentation to design systems, directly integrated into your design workflow.
 
-# Taskbar11
-<img src="https://github.com/jetspiking/Taskbar11/blob/main/Images/Taskbar11_Icon.png">
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
-Change the position and size of the Windows taskbar in Windows 11.
+## Overview
 
-# Description
-Taskbar11 customizes the look of the Windows 11 taskbar, which doesn't have any options by default. The taskbar can be set to the top or bottom (default) of the screen, it also allows for setting various icon sizes.
+Design Context Pro helps design teams bridge the gap between design and documentation by allowing designers to add context, guidelines, and usage information directly within Figma. The plugin syncs seamlessly with a web app where teams can browse, search, and explore their design system documentation.
 
-# Usage
-Download and launch the executable "Taskbar11.exe". The program is portable.
+### Key Features
 
-[Releases](https://github.com/jetspiking/Taskbar11/releases)
+- **🎨 Figma Plugin**: Add context directly to design components within Figma
+- **🌐 Web Application**: Browse and search your design system documentation
+- **🔄 Real-time Sync**: Keep documentation in sync between Figma and the web
+- **📝 Rich Documentation**: Add descriptions, usage guidelines, properties, examples, and more
+- **🏷️ Tag System**: Organize components with tags for easy discovery
+- **🔍 Search**: Powerful search across all documented components
+- **👥 Collaboration**: Share design system knowledge across your team
 
-# Requirements
-- Windows 11
+## Project Structure
 
-Possibly works on other version of Windows. However, since Windows 11 is the first version with locked settings there really is no purpose to install it on earlier activated versions of Windows.
+```
+design-context-pro/
+├── figma-plugin/          # Figma plugin source code
+│   ├── src/
+│   │   ├── code.ts        # Main plugin logic
+│   │   ├── ui.tsx         # React-based UI
+│   │   └── types.ts       # TypeScript definitions
+│   ├── ui/
+│   │   └── ui.html        # Plugin UI template
+│   ├── manifest.json      # Figma plugin manifest
+│   └── package.json
+│
+└── web-app/               # Web application
+    ├── client/            # React frontend
+    │   ├── src/
+    │   │   ├── components/
+    │   │   ├── pages/
+    │   │   ├── services/
+    │   │   └── types/
+    │   └── package.json
+    │
+    └── server/            # Node.js backend API
+        ├── src/
+        │   ├── controllers/
+        │   ├── models/
+        │   ├── routes/
+        │   ├── middleware/
+        │   └── index.ts
+        └── package.json
+```
 
-# Information
-All adjusted registry settings can be viewed in [TaskbarSettingsController.cs](https://github.com/jetspiking/Taskbar11/blob/main/Taskbar11/Taskbar11/Controllers/TaskbarSettingsController.cs).
+## Getting Started
 
-## Prioritized
-- [Halted] Taskview for a top-aligned taskbar (thanks to @Naamloos for submitting [issue 25](https://github.com/jetspiking/Taskbar11/issues/25))
-- Application should not be able to open more than one time (thanks to @Euclidite for suggesting in [issue 14](https://github.com/jetspiking/Taskbar11/issues/14))
-- Audio button in toolbar which opens the old audio mixer (SndVol.exe in system32)  
+### Prerequisites
 
-## Upcoming
-- Wi-Fi and Energy-symbol in toolbar (thanks to @Euclidite for suggesting)
-- Close to background button that silently continues application without taskbar icon (thanks to @Euclidite for suggesting)
+- Node.js 18+ and npm
+- Figma Desktop App (for plugin development)
+- Git
 
-# Contributing
-Bugs can be reported by opening issues. Ideas to include specific registry settings can also be discussed by opening an issue. 
+### Installation
 
-<img src="https://github.com/jetspiking/Taskbar11/blob/main/Images/Taskbar11_Banner.jpg" width="128">
+#### 1. Clone the Repository
 
-# Thank you for using Taskbar11
-If you enjoy Taskbar11 and you feel like it is improving your productivity and you want to support me extra, you could consider buying me a drink by navigating to my Buy Me A Coffee account.
+```bash
+git clone https://github.com/yourusername/design-context-pro.git
+cd design-context-pro
+```
 
-<a href="https://www.buymeacoffee.com/DustinHendriks" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
+#### 2. Install Figma Plugin Dependencies
 
+```bash
+cd figma-plugin
+npm install
+npm run build
+```
 
+#### 3. Install Web App Dependencies
 
+```bash
+# Install client dependencies
+cd ../web-app/client
+npm install
+
+# Install server dependencies
+cd ../server
+npm install
+```
+
+### Running the Application
+
+#### Start the Backend Server
+
+```bash
+cd web-app/server
+npm run dev
+```
+
+The API server will start on `http://localhost:5000`
+
+#### Start the Frontend
+
+```bash
+cd web-app/client
+npm run dev
+```
+
+The web app will start on `http://localhost:3000`
+
+#### Load the Figma Plugin
+
+1. Open Figma Desktop App
+2. Go to **Plugins** → **Development** → **Import plugin from manifest**
+3. Navigate to the `figma-plugin` directory and select `manifest.json`
+4. Run the plugin from **Plugins** → **Development** → **Design Context Pro**
+
+## Usage
+
+### Setting Up API Key
+
+1. Open the web app at `http://localhost:3000`
+2. Click **"Generate API Key"**
+3. Copy the generated API key
+
+### Using the Figma Plugin
+
+1. Open your Figma file with design system components
+2. Run **Design Context Pro** from the Plugins menu
+3. Select a component in Figma
+4. Click on the **"Edit"** tab in the plugin
+5. Fill in the context information:
+   - **Title**: Component name
+   - **Description**: What the component does
+   - **Usage Guidelines**: When and how to use it
+6. Click **"Create Context"** or **"Update Context"**
+7. Switch to the **"All Contexts"** tab
+8. Paste your API key and click **"Sync to Server"**
+
+### Viewing Documentation on the Web
+
+1. Navigate to `http://localhost:3000`
+2. Browse your synced design systems
+3. Search for specific components
+4. Filter by tags
+5. View detailed documentation for each component
+
+## API Documentation
+
+### Endpoints
+
+#### Authentication
+
+- `POST /api/auth/api-key` - Generate a new API key
+
+#### Projects
+
+- `GET /api/projects` - Get all projects
+- `GET /api/projects/:fileKey` - Get a specific project
+- `GET /api/projects/:fileKey/contexts` - Get all contexts for a project
+- `GET /api/projects/:fileKey/contexts/:contextId` - Get a specific context
+- `POST /api/sync` - Sync contexts from Figma (requires API key)
+
+#### Search
+
+- `GET /api/search?q=query` - Search across all contexts
+
+### Authentication
+
+Most endpoints support optional authentication. The `/sync` endpoint requires authentication via Bearer token:
+
+```bash
+curl -H "Authorization: Bearer YOUR_API_KEY" \
+     -H "Content-Type: application/json" \
+     -X POST http://localhost:5000/api/sync \
+     -d '{"fileKey": "abc123", "contexts": [...]}'
+```
+
+## Development
+
+### Building for Production
+
+#### Figma Plugin
+
+```bash
+cd figma-plugin
+npm run build
+```
+
+The built files will be in the `dist/` directory.
+
+#### Web Application
+
+```bash
+# Build frontend
+cd web-app/client
+npm run build
+
+# Build backend
+cd ../server
+npm run build
+npm start
+```
+
+### Technology Stack
+
+**Figma Plugin:**
+- TypeScript
+- React
+- Figma Plugin API
+- esbuild
+
+**Frontend:**
+- React 18
+- TypeScript
+- React Router
+- Vite
+- Axios
+
+**Backend:**
+- Node.js
+- Express
+- TypeScript
+- File-based data storage (easily upgradeable to MongoDB/PostgreSQL)
+
+## Features in Detail
+
+### Context Management
+
+Each component can have:
+- **Title & Description**: Basic information about the component
+- **Usage Guidelines**: When and how to use the component
+- **Properties**: Document props/variants with types and descriptions
+- **Examples**: Real-world usage examples
+- **Guidelines**: Best practices and design guidelines
+- **Tags**: Categorization for easy filtering
+
+### Sync Mechanism
+
+The plugin stores context data in Figma's plugin data storage. When you sync:
+1. Plugin collects all context data from the current file
+2. Sends it to the backend via API
+3. Backend stores and indexes the data
+4. Web app displays the latest synced data
+
+## Roadmap
+
+- [ ] MongoDB/PostgreSQL integration
+- [ ] User authentication and team workspaces
+- [ ] Version history for documentation
+- [ ] Visual previews from Figma
+- [ ] Export to Markdown/HTML
+- [ ] Comments and discussions
+- [ ] Design tokens integration
+- [ ] Figma variables documentation
+- [ ] AI-assisted documentation generation
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- Inspired by [zeroheight](https://zeroheight.com/) and other design documentation tools
+- Built with the [Figma Plugin API](https://www.figma.com/plugin-docs/)
+- Special thanks to the Figma and design systems communities
+
+## Support
+
+For questions, issues, or feature requests, please open an issue on GitHub.
+
+---
+
+**Made with ❤️ for designers and developers**

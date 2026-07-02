@@ -1,0 +1,27 @@
+{
+  "name": "design-context-pro-plugin",
+  "version": "1.0.0",
+  "description": "Figma plugin for adding context and documentation to design systems",
+  "main": "dist/code.js",
+  "scripts": {
+    "build": "npm run build:plugin && npm run build:ui",
+    "build:plugin": "esbuild src/code.ts --bundle --outfile=dist/code.js --target=es2017",
+    "build:ui": "esbuild src/ui.tsx --bundle --outfile=dist/ui.js --target=es2017 --loader:.svg=file && npm run copy:html",
+    "copy:html": "cp ui/ui.html dist/ui.html",
+    "watch": "npm run build:plugin -- --watch & npm run build:ui -- --watch",
+    "dev": "npm run watch"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@figma/plugin-typings": "^1.90.0",
+    "@types/react": "^18.2.45",
+    "@types/react-dom": "^18.2.18",
+    "esbuild": "^0.19.11",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
